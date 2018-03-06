@@ -38,7 +38,8 @@ module.exports = {
       '@': resolve('src'),   //在这里，配置你的 波浪号 ~
       'components': resolve('src/components'),
       'common': resolve('src/common'),
-      'api': resolve('src/api')
+      'api': resolve('src/api'),
+      'base': resolve('src/base')
     }
   },
   module: {
