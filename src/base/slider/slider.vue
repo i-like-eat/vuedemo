@@ -73,6 +73,7 @@
     methods: {
       _setSliderWidth(isResize) {
         if(!this.$refs.sliderGroup.children.length) {
+          //解决报错
           return;
         }
         this.children = this.$refs.sliderGroup.children
@@ -87,6 +88,7 @@
           width += sliderWidth
         }
         if (this.loop && !isResize) {
+          //自动轮播时会增加两个前后
           width += 2 * sliderWidth
         }
         this.$refs.sliderGroup.style.width = width + 'px'
@@ -114,7 +116,7 @@
           this.currentPageIndex = pageIndex
 
           if (this.autoPlay) {
-            clearTimeout(this.timer)
+            // clearTimeout(this.timer)
             this._play()
           }
         })
@@ -127,7 +129,6 @@
       },
       _initDots() {
         this.dots = new Array(this.children.length)
-  
       },
       _play() {
         let pageIndex = this.currentPageIndex + 1
