@@ -56,10 +56,10 @@
 		methods: {
       loadImage() {
         if(!this.checkLoaded) {
+          //解决BScroll初始化加载计算高度不正确
           this.$refs.scroll.refresh();
           this.checkLoaded = true;
-        }
-        
+        }        
       },
 			_getRecommend() {
 				getRecommend().then((res) => {
