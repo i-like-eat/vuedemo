@@ -1,6 +1,6 @@
 <template>
-	<div class="singer">
-		<listview :data="singers"></listview>
+	<div class="singer" ref="singer">
+		<listview @select="selectSinger" :data="singers"></listview>
 	</div>
 </template>
 <script type="text/ecmascript-6">
@@ -11,6 +11,7 @@
 
 	const HOT_NAME = '热门'
 	const HOT_SINGER_LEN = 10
+
  	export default {
 		data() {
 			return {
@@ -21,6 +22,13 @@
 			this._getSingerList()
 		},
 		methods: {
+			selectSinger(singer) {
+		        // this.$router.push({
+		        //   path: `/singer/${singer.id}`
+		        // })
+		        this.$router.push({path: '/singer/1331313'})
+		        // this.setSinger(singer)
+		    },
 			_getSingerList() {
 				getSingerList().then((res)=>{
 					if(ERR_OK == res.code) {
