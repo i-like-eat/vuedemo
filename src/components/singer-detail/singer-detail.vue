@@ -1,19 +1,17 @@
 <template>
-  <!-- <transition name="slide"> -->
-    <!-- <music-list ></music-list> -->
-    <div class="top">ddfsdfdsfsdfdfdsf</div>
-    <!-- sdfdsfdsfdsf -->
-  <!-- </transition> -->
+  <transition name="slide">
+    <music-list ></music-list>
+  </transition>
 </template>
 
 <script type="text/ecmascript-6">
-  // import MusicList from 'components/music-list/music-list'
+  import MusicList from 'components/music-list/music-list'
   // import {getSingerDetail} from 'api/singer'
   // import {ERR_OK} from 'api/config'
   // import {createSong} from 'common/js/song'
   // import {mapGetters} from 'vuex'
 
-  // export default {
+  export default {
   //   computed: {
   //     title() {
   //       return this.singer.name
@@ -49,10 +47,10 @@
   //     },
   
   //   },
-  //   components: {
-  //     MusicList
-  //   }
-  // }
+    components: {
+      MusicList
+    }
+  }
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
@@ -61,9 +59,4 @@
 
   .slide-enter, .slide-leave-to
     transform: translate3d(100%, 0, 0)
-    .top {
-      width: 1000px;
-      height: 500px
-      background-color #fff
-    }
 </style>

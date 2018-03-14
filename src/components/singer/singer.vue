@@ -1,6 +1,7 @@
 <template>
 	<div class="singer" ref="singer">
 		<listview @select="selectSinger" :data="singers"></listview>
+		<router-view></router-view>
 	</div>
 </template>
 <script type="text/ecmascript-6">
@@ -23,10 +24,9 @@
 		},
 		methods: {
 			selectSinger(singer) {
-		        // this.$router.push({
-		        //   path: `/singer/${singer.id}`
-		        // })
-		        this.$router.push({path: '/singer/1331313'})
+		        this.$router.push({
+		          path: `/singer/${singer.id}`
+		        })
 		        // this.setSinger(singer)
 		    },
 			_getSingerList() {

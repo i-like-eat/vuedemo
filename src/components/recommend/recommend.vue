@@ -51,7 +51,6 @@
       setTimeout(()=>{
         this._getDiscList();
       }, 1000)
-			
 		},
 		methods: {
       loadImage() {
