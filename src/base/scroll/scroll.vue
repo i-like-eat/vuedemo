@@ -17,7 +17,7 @@
     		type: Boolean,
     		default: true
     	},
-        listScroll: {
+        listenScroll: {
             type: Boolean,
             default: false
         },
@@ -40,7 +40,7 @@
         		probeType: this.probeType,
         		click: this.click
         	})
-            if (this.listScroll) {
+            if (this.listenScroll) {
               let me = this
               this.scroll.on('scroll', (pos) => {
                 me.$emit('scroll', pos)

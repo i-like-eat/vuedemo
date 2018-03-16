@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=no,initial-scale=1.0,minimal-ui" />
+    <title>Document</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .vid-wrap {
+        width: 100%;
+        background: #000;
+        position: relative;
+        padding-bottom: 75%;
+        /*需要用padding来维持16:9比例,也就是9除以16  */
+        /*padding-bottom:56.25%;*/
+        /*需要用padding来维持16:9比例,也就是9除以16  */
+        height: 0;
+    }
+
+    .vid-wrap video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%; //object-fit: fill  
+    }
+    </style>
+</head>
+
+<body>
+    <div class="vid-wrap">
+        <video controls autoplay loop id='v1'>
+            <!-- <span style="white-space:pre;"> </span> -->
+            <!-- <source src="Intermission-Walk-in.ogv" type="video/ogv"> -->
+            <!-- <source src="Intermission-Walk-in_512kb.mp4" type="video/mp4"> -->
+        </video>
+    </div>
+    <input type="button" value="播放" />
+    <input type="button" value="00:00:00" />
+    <input type="button" value="00:00:00" />
+    <input type="button" value="静音" />
+    <input type="button" value="全屏" />
+    <canvas id="c1"></canvas>
+    <script>
+    window.onload = function() {
+        var oV = document.getElementById('v1');
+        var oC = document.getElementById('c1');
+        var oGc = oC.getContext('2d');
+        var aInput = document.getElementsByTagName('input');
+        var timer = null;
+
+        console.log(oV.videoWidth);
+        oC.width = oV.videoWidth; //获取视频的宽度和高度
+        oC.height = oV.videoHeight;
+
+        setInterval(function() {
+            oGc.drawImage(oV, 0, 0);
+        }, 30);
+
+        console.log(oV.paused); //暂停的属性
+        aInput[0].onclick = function() {
+            if (oV.paused) {
+                oV.play(); //播放
+                this.value = '暂停';
+                nowTime();
+                timer = setInterval(nowTime, 1000);
+            } else {
+                oV.pause();
+                this.value = '播放';
+                clearInterval(timer);
+            }
+        };
+        aInput[3].onclick = function() {
+            if (oV.muted) {
+                oV.volume = 1; //静音
+                this.value = '静音';
+                oV.muted = false;
+            } else {
+                oV.volume = 0;
+                this.value = '取消静音';
+                oV.muted = true;
+            }
+        };
+        aInput[2].value = changeTime(oV.duration);
+        console.log(oV.duration);
+        function nowTime(){
+			aInput[1].value = changeTime(oV.currentTime);
+		}
+        function changeTime(iNum) {
+            iNum = parseInt(iNum);
+            var iH = toZero(Math.floor(iNum / 3600));
+            var iM = toZero(Math.floor(iNum % 3600 / 60));
+            var iS = toZero(Math.floor(iNum % 60));
+            return iH + ':' + iM + ':' + iS;
+        }
+        function toZero(num) {
+            if (num <= 9) {
+                return '0' + num;
+            } else {
+                return '' + num;
+            }
+        }
+      	console.log(oV.muted)
+
+        aInput[4].onclick = function(){
+			oV.mozRequestFullScreen();
+		};
+
+		//视频的一起属性和方法
+		//constrols  loop
+		//宽度和高度 oV.videoWidth/oV.videoHeight
+		//是否暂停 oV.paused true/false
+		//是否静音： oV.muted true/false  
+		//oV.volume 设置静音 1/0
+		//oV.play();   播放  oV.pause(); 暂停
+		//oV.duration  总的时长  以秒为单位
+		//oV.currentTime 当前播放时长
+		//oV.mozRequestFullScreen()  全屏
+		//oV.load();  重新加载
+		//oV.addEventListener('ended',function(){alert(123);},false);
+		//oV.poster = '2.png'; 设置封面
+ 
+		//
+		//
+		//音频的方法
+		//<audio id="a1" controls src="johann_sebastian_bach_air.mp3"></audio>
+		//var oA = document.getElementById('a1');
+		//console.log( oA.duration );
+		//console.log( oA.volume );
+		
+		//console.log( oA.muted );
+		//oA.play();
+		//console.log( oA.paused );
+		//console.log( oA.ended );
+		//console.log( oA.error );
+		//console.log( oA.currentSrc );
+		//
+		//controls  :   显示或隐藏用户控制界面
+		// autoplay  :  媒体是否自动播放
+		// loop  : 媒体是否循环播放
+		// currentTime  :  开始到播放现在所用的时间
+		// duration  :  媒体总时间(只读)
+		// volume  :   0.0-1.0的音量相对值
+		// muted  :   是否静音
+		// autobuffer  :   开始的时候是否缓冲加载，autoplay的时候，忽略此属性
+
+	// 		paused  :   媒体是否暂停(只读)
+	// ended   :   媒体是否播放完毕(只读)
+	// error   :  媒体发生错误的时候，返回错误代码 (只读)
+	// currentSrc  :   以字符串的形式返回媒体地址(只读)
+
+	// play()  :  媒体播放
+	// pause()  :  媒体暂停
+	// load()  :  重新加载媒体
+    //  原因是 歌曲不能再以第一参数当id了 要以倒数第5个 如以上的例子 002qU5aY3Qu24y当id，而且前面要加C100，完整的就是 http://ws.stream.qqmusic.qq.com/C100002qU5aY3Qu24y.m4a?fromtag=0
+    
+        function util() {
+            var e,t;
+            var mr = '';
+            if(mr.length>0) return mr;
+            return t&&t.length>0 ? mr = t : (e=(new Date).getUTCMilliseconds(),mr=Math.round(214483647 * Math.random()) *e %1e10, mr)
+        }
+        console.log(util());
+    }
+    </script>
+</body>
+
+</html>
